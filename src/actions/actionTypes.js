@@ -1,0 +1,5 @@
+export const PRODUCT_FETCH = 'PRODUCT_FETCH';
+export const PRODUCT_RECEIVER = 'PRODUCT_RECEIVER';
+
+export const TOKEN_FETCH = 'TOKEN_FETCH';
+export const TOKEN_RECEIVER = 'TOKEN_RECEIVER';
