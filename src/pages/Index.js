@@ -1,7 +1,7 @@
 'use strict'
 import React, {Component} from 'react';
 import {
-    Text, StyleSheet, View, Image, ScrollView, InteractionManager
+    Text, StyleSheet, View, Image, ScrollView, InteractionManager,Dimensions
 } from 'react-native';
 import ViewUtils from '../common/ViewUtils';
 import {connect} from 'react-redux';
@@ -10,6 +10,9 @@ import ProductList from '../component/ProductList';
 import {PagerDotIndicator, IndicatorViewPager} from 'rn-viewpager';
 const Banners = ["http://192.168.30.76/think/images/banner/banner_one.jpg", "http://192.168.30.76/think/images/banner/banner_two.jpg"
     , "http://192.168.30.76/think/images/banner/banner_three.jpg"];
+
+let {width} = Dimensions.get('window');
+let ScreenWidth = Dimensions.get('window').width;
 class Index extends React.Component {
     constructor(props) {
         super(props);
@@ -25,7 +28,7 @@ class Index extends React.Component {
 
     componentDidMount() {
         const {dispatch} = this.props;
-        dispatch(fetchProduct());
+         dispatch(fetchProduct());
         this.viewpagerTimer();
     }
 
@@ -94,11 +97,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     scrollview: {
-        width: ViewUtils.ScreenWidth,
+        width: ScreenWidth,
         height: ViewUtils.ScreenHeight
     },
     imagebg: {
-        width: 235,
+        width: ScreenWidth/2-5,
         height: 65,
         flexDirection: 'row',
         alignItems: 'center',
@@ -116,7 +119,7 @@ const styles = StyleSheet.create({
         margin: 5,
     },
     banner: {
-        width: ViewUtils.ScreenWidth,
+        width: ScreenWidth,
         height: 300,
     }
 });

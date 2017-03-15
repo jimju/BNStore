@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
         width: ScreenWidth,
         alignItems: 'center',
         justifyContent: 'flex-start',
+        backgroundColor:'white',
         marginBottom: 35,
     },
     listitem: {
@@ -82,8 +83,9 @@ const styles = StyleSheet.create({
         height: 275,
         justifyContent: 'center',
         padding: 10,
-        borderWidth: 0.5,
+        borderWidth: 1,
         borderColor: '#d7d7db',
+        backgroundColor:'white',
         margin: 2,
     },
     stylecenter: {
