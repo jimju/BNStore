@@ -15,25 +15,25 @@ import {
     onEndReachedThreshold,
     onEndReached
 } from 'react-native';
-import ViewUtils from '../common/ViewUtils';
-import {connect} from 'react-redux';
+
 import {HOST} from '../common/utils';
-import CrmScrollImageView from '../component/CrmScrollImageView';
-import ProductDetail from './ProductDetail';
-import {fetchProduct, fetchProductM} from '../actions/ProdcutActions';
+import {connect} from 'react-redux';
+import TitleProductSearch from '../component/TitleProductSearch';
+import {fetchingSearch} from '../actions/ProdcutActions';
 
 
-class Index extends React.Component {
+class ProductSearch extends React.Component {
     constructor(props) {
         super(props);
         this.currentPage = 1;
         this.dataSource = new ListView.DataSource({
             rowHasChanged: (row1, row2) => row1 !== row2
         });
+
+        console.log(props);
         this.state = {
-            debug: '',
-            foottext: '正在为您加载更多...',
-            products: []
+            key: '',
+            foottext: '正在为您加载更多...'
         }
     }
 
@@ -43,35 +43,26 @@ class Index extends React.Component {
 
     //视图绘制完成后加载数据
     componentDidMount() {
-        const {dispatch} = this.props;
-        dispatch(fetchProduct(1, 10));
-    }
-
-    //跳转产品搜索
-    _startDetail(text) {
-        const {navigator} = this.props;
-        navigator.push({
-            component: ProductDetail,
-            name: 'ProductDetail',
-            value: text
-        });
+        this._onRefresh();
     }
 
 
     _onRefresh() {
         const {dispatch} = this.props;
         this.currentPage = 1;
-        dispatch(fetchProduct(this.currentPage, 10));
+        dispatch(fetchingSearch(this.currentPage, 10, this.state.key, this.props.route.value));
     }
 
-    _debug(info) {
-        this.setState({debug: info});
+    _search() {
+        const {dispatch} = this.props;
+        this.currentPage = 1;
+        dispatch(fetchingSearch(this.currentPage, 10, this.state.key, null));
     }
 
     _renderList(prod) {
         return (
             <TouchableHighlight
-                underlayColor={'#fff'} onPress={() => this._startDetail(prod.productHeaderId)}>
+                underlayColor={'#fff'}>
                 <View style={styles.listitem}>
                     <Image source={{
                         uri: prod.fileProperties[0] ? prod.fileProperties[0].url + "/" + prod.fileProperties[0].fileName
@@ -94,32 +85,7 @@ class Index extends React.Component {
                     </View>
                 </View>
             </TouchableHighlight>);
-    }
 
-    header() {
-        return (<View>
-                <CrmScrollImageView/>
-                <View style={{margin: 5, flexDirection: 'row', alignItems: 'center', height: 65}}>
-                    <Image style={styles.imagebg} source={require('../res/images/anli.jpg')}>
-                        <Image style={styles.itemimage} source={require('../res/images/anli_icon.png')}/>
-                        <Text style={styles.itemtext}>案例推荐</Text>
-                    </Image>
-                    <Image style={styles.imagebg} source={require('../res/images/youshi.jpg')}>
-                        <Image style={styles.itemimage} source={require('../res/images/youshi_icon.png')}/>
-                        <Text style={styles.itemtext}>海鸥优势</Text>
-                    </Image>
-                </View>
-
-                <View style={{
-                    width: ViewUtils.ScreenWidth,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    margin: 5
-                }}>
-                    <Image style={styles.recomimage} source={require('../res/images/mainrecom.png')}/>
-                </View>
-            </View>
-        );
     }
 
     footer() {
@@ -133,26 +99,30 @@ class Index extends React.Component {
     }
 
     _loadMore() {
-        const {dispatch, product} = this.props;
-        if (product && product.data.length < product.totalCount) {
+        const {dispatch, productSearch} = this.props;
+        console.log('加载更多。。。。。。');
+        if (productSearch && productSearch.data.length < productSearch.totalCount) {
             ++this.currentPage;
-            dispatch(fetchProductM(this.currentPage, 10));
+            dispatch(fetchingSearch(this.currentPage, 10, this.state.key, this.props.route.value));
         } else {
             this.setState({foottext: '没有更多数据了'});
         }
     }
 
+    _textchagne(text) {
+        this.setState({key: text})
+    }
+
     render() {
-        const {isFetching, product} = this.props;
+        const {isFetching, productSearch} = this.props;
         return (
             <View style={styles.content}>
-
+                <TitleProductSearch {...this.props} search={this._search.bind(this)} tc={this._textchagne.bind(this)}/>
                 <ListView
-                    renderHeader={this.header.bind(this)}
-                    dataSource={this.dataSource.cloneWithRows(product ? product.data : [])}
+                    dataSource={this.dataSource.cloneWithRows(productSearch ? productSearch.data : [])}
                     renderRow={prod => this._renderList(prod)}
-                    onEndReached={this._loadMore.bind(this)}
                     onEndReachedThreshold={30}
+                    onEndReached={this._loadMore.bind(this)}
                     renderFooter={this.footer.bind(this)}
                     contentContainerStyle={styles.list}
                     enableEmptySections={true}
@@ -173,7 +143,8 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
         flexDirection: 'column',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor:'white'
     },
     scrollview: {
         width: ScreenWidth,
@@ -202,7 +173,7 @@ const styles = StyleSheet.create({
         margin: 5,
     },
     banner: {
-        width: ViewUtils.ScreenWidth,
+        width: ScreenWidth,
         height: 300,
     },
     list: {
@@ -211,7 +182,6 @@ const styles = StyleSheet.create({
         width: ScreenWidth,
         alignItems: 'center',
         justifyContent: 'flex-start'
-
     },
     listitem: {
         width: ScreenWidth / 2 - 5,
@@ -229,11 +199,11 @@ const styles = StyleSheet.create({
     }
 });
 function select(state) {
-    console.log("state");
     console.log(state);
     return {
         isFetching: state.productReducer.isFetching,
-        product: state.productReducer.product
+        productSearch: state.productReducer.productSearch
     }
 }
-export default connect(select)(Index);
+
+export default connect(select)(ProductSearch);

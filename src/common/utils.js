@@ -1,7 +1,7 @@
 /**
  * Created by ljunb on 16/5/27.
  */
-const HOST = 'http://192.168.30.76';
+export const HOST = 'http://192.168.30.76';
 let Util = {
     /*
      * fetch简单封装

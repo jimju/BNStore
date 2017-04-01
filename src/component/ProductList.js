@@ -1,14 +1,8 @@
 import React, {Component} from 'react';
 import {
-    AppRegistry,
-    StyleSheet,
-    Text,
-    View,
-    ListView,
-    TouchableHighlight,
-    ToastAndroid,
-    Image
+    AppRegistry, StyleSheet,TouchableHighlight,  Text, View,ListView, Image,ToastAndroid
 } from 'react-native';
+import {HOST} from '../common/utils';
 
 var Dimensions = require('Dimensions');
 var ScreenWidth = Dimensions.get('window').width;
@@ -27,31 +21,35 @@ class ProductList extends React.Component {
         });
 
         this.state = {
-            prods: dataSource1.cloneWithRows(this.props.products)
+            prods: dataSource1.cloneWithRows(this.props.products.data)
         };
     }
 
     showtoast(text) {
-        if (text == "陶瓷刀") {
-            // ToastAndroid.show(text, ToastAndroid.LONG);
-        }
-
+        ToastAndroid.show(text, ToastAndroid.LONG);
     }
 
     _renderList(prod) {
         return (
             <TouchableHighlight
                 underlayColor={'#fff'}
-                onPress={this.showtoast.bind(this, prod.productname)}>
+                onPress={this.showtoast.bind(this, prod.productHeaderId)}>
                 <View style={styles.listitem}>
 
                     <View style={styles.stylecenter}>
-                        <Image source={{uri:prod.image}}
-                               style={[{width: 200, height: 170, justifyContent: 'center'}, {resizeMode: 'contain'}]}/>
+                        <Image source={{
+                            uri: prod.fileProperties[0] ? prod.fileProperties[0].url + "/" + prod.fileProperties[0].fileName
+                                : HOST + "/eihView/images/img_default.png"
+                        }}
+                               style={[{
+                                   width: ScreenWidth / 2 - 10,
+                                   height: ScreenWidth / 2 - 10,
+                                   justifyContent: 'center'
+                               }, {resizeMode: 'contain'}]}/>
                     </View>
-                    <Text style={{fontSize: 15, marginTop: 5}}>{prod.productname}</Text>
-                    <Text>{prod.productnumber}</Text>
-                    <Text style={{fontSize: 15,color:'red'}}>{prod.price}</Text>
+                    <Text numberOfLines={1} style={{fontSize: 15, marginTop: 5}}>{prod.productName}</Text>
+                    <Text>{prod.productNumber}</Text>
+                    <Text style={{fontSize: 15, color: 'red'}}>{prod.brandPrice}</Text>
                 </View>
             </TouchableHighlight>);
 
@@ -61,6 +59,8 @@ class ProductList extends React.Component {
         return (
             <View>
                 <ListView contentContainerStyle={styles.list} dataSource={this.state.prods}
+                          renderFooter={this.props.footer}
+                          renderHeader={this.props.header}
                           renderRow={prod => this._renderList(prod)}/>
             </View>
         );
@@ -74,12 +74,12 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         width: ScreenWidth,
         alignItems: 'center',
-        justifyContent: 'flex-start',
-        marginBottom: 35,
+        justifyContent: 'flex-start'
+
     },
     listitem: {
         width: ScreenWidth / 2 - 5,
-        height: 275,
+        height: ScreenWidth / 2 + 80,
         justifyContent: 'center',
         padding: 10,
         borderWidth: 0.5,

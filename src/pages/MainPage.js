@@ -9,9 +9,11 @@ import {
 
 import TabNavigator from 'react-native-tab-navigator';
 
-import Test from './Test'
 import Index from './Index'
-import Product from './Product'
+import Mine from './Mine'
+import ClassifyComponent from '../component/ClassifyComponent'
+import Test from './Test'
+import ProductClassify from './ProductClassify'
 
 export default class MainPage extends React.Component {
     constructor(props) {
@@ -39,7 +41,7 @@ export default class MainPage extends React.Component {
                 renderIcon={() => <Image style={styles.baricon} source={require('../res/images/pro1.png')} />}
                 renderSelectedIcon={() => <Image style={styles.baricon} source={require('../res/images/pro.png')} />}
                 onPress={() => this.setState({ selectedTab: 'profile' })}>
-                <Product {...this.props}/>
+                <ProductClassify {...this.props}/>
               </TabNavigator.Item>
 
               <TabNavigator.Item
@@ -48,7 +50,7 @@ export default class MainPage extends React.Component {
                 renderIcon={() => <Image style={styles.baricon} source={require('../res/images/me1.png')} />}
                 renderSelectedIcon={() => <Image style={styles.baricon} source={require('../res/images/me.png')} />}
                 onPress={() => this.setState({ selectedTab: 'me' })}>
-                <Test {...this.props}/>
+                <Mine {...this.props}/>
               </TabNavigator.Item>
 
               </TabNavigator>
@@ -60,6 +62,6 @@ export default class MainPage extends React.Component {
 const styles = StyleSheet.create({
   baricon:{
     width:35,
-    height:35,
+    height:35
   }
 });

@@ -14,7 +14,7 @@ import {
   Platform,
 } from 'react-native';
 
-import MainPage from './MainPage';
+import Splash from './Splash';
 
 export const STATUS_BAR_HEIGHT = (Platform.OS === 'ios' ? 20 : 0)
 export const ABOVE_LOLIPOP = Platform.Version && Platform.Version > 19
@@ -48,8 +48,8 @@ export default class root extends React.Component {
         <Navigator
         style={{flex:1}}
         initialRoute={{
-          component:MainPage,
-          name:'MainPage',
+          component:Splash,
+          name:'Splash',
         }}
         renderScene={(route, navigator) =>{
           let Component = route.component;
