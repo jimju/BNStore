@@ -1,6 +1,7 @@
 /**
  * Created by Administrator on 2017/3/13.
  */
+import {Dimensions} from 'react-native';
 let ViewUtils ={
     ScreenWidth:() => {
         let ScreenWidth = Dimensions.get('window').width;
