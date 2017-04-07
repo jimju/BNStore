@@ -152,7 +152,7 @@ export class CrmScrollImageView extends React.Component{
         var style;
         //拿到图像数组
         var imgsArr =  BannersArr;
-        //console.log(this.state);
+        ////console.log(this.state);
         for(var i = 0;i < imgsArr.length;i ++){
 
             //判断
@@ -175,7 +175,7 @@ export class CrmScrollImageView extends React.Component{
 
         //2.求出当前的页数
         var currentPage = Math.floor(offsetX / width);
-        //console.log(currentPage);
+        ////console.log(currentPage);
         //3.更新状态机,重新绘制UI
         this.setState({
             //当前页码

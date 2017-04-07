@@ -52,7 +52,7 @@ class ProductClassify extends React.Component {
         // });
         // this.setState({currentId: rowID, classifies: dataSource2});
         this.setState({currentId: rowID});
-        console.log(rowID);
+        //console.log(rowID);
         if (rowID > 0) {
             const {dispatch, classify} = this.props;
             dispatch(fetchClassifyChild(classify.data[rowID-1].classifyId));
@@ -60,7 +60,7 @@ class ProductClassify extends React.Component {
     }
 
     _renderRow(rowData, sectionID, rowID) {
-        console.log(rowData);
+        //console.log(rowData);
         return (
             <View>
                 <TouchableOpacity onPress={() => this._pressRow(rowID)}>
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     }
 })
 function classify(state) {
-    console.log(state);
+    //console.log(state);
     return {
         classify: state.classifyReducer.classify,
         classifyChild: state.classifyReducer.classifyChild

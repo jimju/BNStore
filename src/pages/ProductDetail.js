@@ -9,12 +9,15 @@ import TitleProductDetail from '../component/TitleProductDetail';
 import ProductDetailModal from '../component/ProductDetailModal';
 import {connect} from 'react-redux';
 import {fetchDetail} from '../actions/ProdcutActions';
+import {fetchDistribute} from '../actions/ChannelAction';
 var ScreenWidth = Dimensions.get('window').width;
 class ProductDetail extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            count: 1
+            count: 1,
+            dealerData:{},
+            shopData:{}
         };
     }
 
@@ -47,6 +50,7 @@ class ProductDetail extends React.Component {
     componentDidMount() {
         const {dispatch} = this.props;
         dispatch(fetchDetail(this.props.route.value));
+        dispatch(fetchDistribute(1003));
     }
 
     _renderPager(productDetail) {
@@ -74,6 +78,31 @@ class ProductDetail extends React.Component {
 
     }
 
+    /*
+     * componentWillReceiveProps(nextProps)：props改变（父容器来更改或是redux），
+     * 将会调用该函数。新的props将会作为参数传递进来，
+     * 老的props可以根据this.props来获取。
+     * 我们可以在该函数中对state作一些处理。
+     * 注意：在该函数中更新state不会引起二次渲染。
+     * */
+    // componentWillReceiveProps(nextProps){
+    //     if(this.state.dealerName === '' && nextProps.dealerArr.length){
+    //         var dealerData = nextProps.dealerArr[0];
+    //         this.setState({
+    //             dealerName:dealerData.distributorName
+    //         });
+    //         this.props.dealerDidSelectBlock(dealerData);
+    //     }
+    //
+    //     if((this.state.shopName === '' && nextProps.shopArr.length) || this.state.isRefreshShopData){
+    //         var shopData = nextProps.shopArr[0];
+    //         this.setState({
+    //             shopName:shopData.bspShopName
+    //         });
+    //         this.props.shopDidSelectBlock(shopData);
+    //     }
+    //
+    // }
 
 
 
@@ -110,11 +139,13 @@ class ProductDetail extends React.Component {
                         {this._renderPager(productDetail).dess}
                     </View>
                 </ScrollView>
-                <Button title='立即购买' style={{height: 50, marginRight: 10, marginLeft: 10}}
+                <Text  style={{width:ScreenWidth,height: 45,padding:10,backgroundColor:'#015ba6',color:'white',textAlign:'center',fontSize:20,
+                    position:'absolute',bottom:1}}
                         onPress={() => {
                             let ProductDetailModal = this.refs.pdm;
-                            ProductDetailModal.showModal();}}/>
-                <ProductDetailModal ref="pdm" {...this.props}/>
+                            ProductDetailModal.showModal();}}>立即购买</Text>
+                <ProductDetailModal ref="pdm" {...this.props} icon={productDetail&&productDetail.data.fileProperties?{uri:productDetail.data.fileProperties[0].url
+                    + '/' + productDetail.data.fileProperties[0].fileName}:require('../res/images/img_default.png')}/>
             </View>
         );
     }
@@ -153,9 +184,11 @@ const styles = StyleSheet.create({
     }
 });
 function select(state) {
-    console.log(state);
+    // console.log(state);
     return {
-        productDetail: state.productReducer.productDetail
+        productDetail: state.productReducer.productDetail,
+        distribute: state.channelReducer.distribute,
+        shop: state.channelReducer.shop
     }
 }
 

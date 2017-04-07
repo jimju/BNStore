@@ -1,10 +1,11 @@
 'use strict'
 import React, {Component} from 'react';
 import {
-    Text, StyleSheet, View, Image, TouchableOpacity, InteractionManager
+    Text, StyleSheet, View, Image, TouchableOpacity, InteractionManager,TouchableHighlight
 } from 'react-native';
 
 import Notify from './Notify';
+import UserInfo from './UserInfo';
 import Storage from '../common/Storage';
 //个人中心
 
@@ -27,14 +28,26 @@ class Mine extends React.Component {
             });
         });
     }
+    //跳转用户信息
+    _onUserClick() {
+        const {navigator} = this.props;
+        InteractionManager.runAfterInteractions(() => {
+            navigator.push({
+                component: UserInfo,
+                name: 'UserInfo'
+            });
+        });
+    }
 
     render() {
         return (
             <View style={styles.content}>
+                <TouchableHighlight onPress={() => this._onUserClick()}>
                 <View style={styles.header}>
                     <Image style={{width: 80, height: 80}} source={require('../res/images/defalut_icon.png')}/>
                     <Text style={{fontSize: 17, color: '#fff', marginTop: 5}}>未登录</Text>
                 </View>
+                </TouchableHighlight>
                 <MineItem name="全部订单" icon={require('../res/images/min_all_order.png')}/>
                 <MineItem name="浏览记录" icon={require('../res/images/mine_record.png')}/>
                 <TouchableOpacity ><MineItem name="我的收藏" icon={require('../res/images/mine_collection.png')}/></TouchableOpacity>

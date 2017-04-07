@@ -1,27 +1,27 @@
 import * as types from '../actions/actionTypes';;
 const initialState = {
-    classify:undefined,
-    classifyChild:undefined,
+    shop:undefined,
+    distribute:undefined,
     isFetching:true
 }
 
-let classifyReducer = (state = initialState,action) => {
+let channelReducer = (state = initialState,action) => {
     switch (action.type){
-        case types.CLASSIFY_FETCH:
+        case types.DISTRIBUTE_FETCH:
             return Object.assign({},state,{
                 ...state,
                 isFetching:true,
             })
-        case types.CLASSIFY_RECEIVER:
+        case types.DISTRIBUTE_RECEIVER:
             //console.log(action);
             return Object.assign({},state,{
-                classify:action.classify.data,
+                distribute:action.distributer.data,
                 isFetching:false
             })
-        case types.CLASSIFY_RECEIVER_CHILD:
+        case types.SHOP_RECEIVER:
             //console.log(action);
             return Object.assign({},state,{
-                classifyChild:action.classifyChild.data,
+                shop:action.store.data,
                 isFetching:false
             })
         default:
@@ -29,4 +29,4 @@ let classifyReducer = (state = initialState,action) => {
     }
 }
 
-export default classifyReducer
+export default channelReducer;

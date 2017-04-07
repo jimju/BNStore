@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     }
 });
 function select(state) {
-    console.log(state);
+    //console.log(state);
     return{
         token:state.tokenReducer.token,
         product:state.productReducer.product

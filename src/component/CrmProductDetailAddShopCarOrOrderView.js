@@ -187,7 +187,8 @@ export class CrmProductDetailAddShopCarOrOrderView extends React.Component {
       <Picker
       prompt="请选择经销商"
       style={{height:160,marginTop:0,backgroundColor:'white'}}
-      selectedValue={this.state.dealerName}
+      selectedValue={thi
+      s.state.dealerName}
       onValueChange={(itemValue, itemPosition) => {
       var dealerData = dataArr[itemPosition];
       this.setState({dealerName: itemValue, isRefreshShopData:true});
@@ -347,9 +348,7 @@ var styles = StyleSheet.create({
     alignItems:'center',
     position:'absolute',
     top:130,
-
     height:40,
-
     borderBottomWidth:.5
   },
   pickerBgViewStyle:{

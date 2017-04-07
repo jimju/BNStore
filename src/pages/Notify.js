@@ -39,7 +39,7 @@ class Notify extends React.Component {
   render(){
     return(
       <View style={styles.content}>
-        <TitleProductDetail {...this.props}/>
+        <TitleProductDetail {...this.props} title="消息通知"/>
         <ListView contentContainerStyle={styles.list} dataSource={this.state.notify}
         renderRow={this._renderList.bind(this)}/>
       </View>

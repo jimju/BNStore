@@ -30,7 +30,7 @@ class ProductSearch extends React.Component {
             rowHasChanged: (row1, row2) => row1 !== row2
         });
 
-        console.log(props);
+        //console.log(props);
         this.state = {
             key: '',
             foottext: '正在为您加载更多...'
@@ -100,7 +100,7 @@ class ProductSearch extends React.Component {
 
     _loadMore() {
         const {dispatch, productSearch} = this.props;
-        console.log('加载更多。。。。。。');
+        //console.log('加载更多。。。。。。');
         if (productSearch && productSearch.data.length < productSearch.totalCount) {
             ++this.currentPage;
             dispatch(fetchingSearch(this.currentPage, 10, this.state.key, this.props.route.value));
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     }
 });
 function select(state) {
-    console.log(state);
+    //console.log(state);
     return {
         isFetching: state.productReducer.isFetching,
         productSearch: state.productReducer.productSearch

@@ -15,7 +15,7 @@ let productReducer = (state = initialState, action) => {
                 isFetching: true,
             })
         case types.PRODUCT_RECEIVER:
-            console.log(action);
+            // //console.log(action);
             return Object.assign({}, state, {
                 product: action.product.data,
                 isFetching: false

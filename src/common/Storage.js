@@ -31,14 +31,14 @@ export default class Storage{
       return AsyncStorage.setItem(key, value, (error)=>{
         if (error){
           alert('存值失败:',error);
-          console.log("保存失败 key:value =>", key, value);
+          //console.log("保存失败 key:value =>", key, value);
         }else{
           alert('存值成功:',key+':'+value);
-          console.log("保存成功 key:value =>", key, value);
+          //console.log("保存成功 key:value =>", key, value);
         }
       });
     }catch(error){
-      console.log('保存失败:'+error);
+      //console.log('保存失败:'+error);
     }
   }
 
@@ -48,14 +48,14 @@ export default class Storage{
       return AsyncStorage.getItem(key, (error,result)=>{
         if (error){
           alert('取值失败:'+error);
-          console.log("取值成功: =>", result);
+          //console.log("取值成功: =>", result);
         }else{
           alert('取值成功:'+result);
-          console.log("取值成功: =>", result);
+          //console.log("取值成功: =>", result);
         }
       })
     }catch(error){
-      console.log("取值失败: =>", error);
+      //console.log("取值失败: =>", error);
     }
   }
 
@@ -63,16 +63,16 @@ export default class Storage{
   static removeValueForKey(key){
     try{
       return AsyncStorage.removeItem(key, (error)=>{
-        console.log("删除值 key:", key);
+        //console.log("删除值 key:", key);
         if(!error){
           alert('移除成功');
-          console.log("删除成功: =>", key);
+          //console.log("删除成功: =>", key);
         }else{
-          console.log("删除失败: =>", error);
+          //console.log("删除失败: =>", error);
         }
       });
     }catch(error) {
-      console.log("删除失败: =>", error);
+      //console.log("删除失败: =>", error);
     }
   }
 
@@ -82,14 +82,14 @@ export default class Storage{
   //    return Storage.getValueForKey(key).then((val)=>{
   //      if (typeof val === 'undefined' || val === null) {
   //        Storage.saveWithKeyValue(key,[value]);
-  //        console.log(`key: ${key} is undefined, save array`);
+  //        //console.log(`key: ${key} is undefined, save array`);
   //      } else {
   //        val.unshift(value);
   //        Storage.saveWithKeyValue(key,val);
   //      }
   //    })
   //  } catch(e) {
-  //    console.log(e);
+  //    //console.log(e);
   //  }
   //}
   */
@@ -98,10 +98,10 @@ export default class Storage{
   static saveWithKeyValue(key,value) {
     try {
       return AsyncStorage.setItem(key, JSON.stringify(value), ()=>{
-        console.log("save success with key:value => ",key, value);
+        //console.log("save success with key:value => ",key, value);
       });
     } catch(e) {
-      console.log(e);
+      //console.log(e);
     }
   }
 
@@ -110,17 +110,17 @@ export default class Storage{
   static getValueForKey(key) {
     try {
       return AsyncStorage.getItem(key, ()=>{
-        console.log("trying to get value with key :", key);
+        //console.log("trying to get value with key :", key);
       }).then((value)=>{
-        console.log("渠道值 :", value);
+        //console.log("渠道值 :", value);
         return JSON.parse(value);
         //return value;
       },
       (e) => {
-        console.log("------eeeeeeeee",e);
+        //console.log("------eeeeeeeee",e);
       });
     } catch(e) {
-      console.log(e);
+      //console.log(e);
     }
   }
 
@@ -128,10 +128,10 @@ export default class Storage{
   static removeValueForKey(key) {
     try {
       return AsyncStorage.removeItem(key, ()=>{
-        console.log("remove value for key: ",key);
+        //console.log("remove value for key: ",key);
       });
     } catch(e) {
-      console.log(e);
+      //console.log(e);
     }
   }
 
@@ -141,14 +141,14 @@ export default class Storage{
       return Storage.getValueForKey(key).then((val)=>{
         if (typeof val === 'undefined' || val === null) {
           Storage.saveWithKeyValue(key,[value]);
-          console.log(`key: ${key} is undefined, save array`);
+          //console.log(`key: ${key} is undefined, save array`);
         } else {
           val.unshift(value);
           Storage.saveWithKeyValue(key,val);
         }
       })
     } catch(e) {
-      console.log(e);
+      //console.log(e);
     }
   }
 }

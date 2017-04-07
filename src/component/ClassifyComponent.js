@@ -47,7 +47,7 @@ class ClassifyComponent extends React.Component {
     //跳转产品搜索
     _onSearchClick(text) {
         const {navigator} = this.props;
-        // console.log('excutiongepgweqrtwqrtweqtrwqetgwqetewq0');
+        // //console.log('excutiongepgweqrtwqrtweqtrwqetgwqetewq0');
 
         navigator.push({
             component: ProductSearch,

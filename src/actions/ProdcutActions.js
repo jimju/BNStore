@@ -41,17 +41,17 @@ let recieverProductDetail= (productDetail) => {
 }
 export let fetchProduct = (page=1,size=10) => {
     let url = '/eihView/resources/eih/product/search?pageNum='+page+'&pageSize='+size;
-    console.log(url);
+    //console.log(url);
     return dispatch => {
-        console.log('action product进入请求');
+        //console.log('action product进入请求');
         dispatch(fetchingProduct());
         Util.get(url, (response) => {
-            console.log('action product结果');
-            console.log(response);
+            //console.log('action product结果');
+            //console.log(response);
             dispatch(receiverProduct(response));
         }, (error) => {
             alert(error);
-            console.log(error);
+            //console.log(error);
             dispatch(receiverProduct({}));
         })
     }
@@ -61,17 +61,17 @@ export let fetchProductM = (page=1,size=10,key=null,seagment=null) => {
     let url = '/eihView/resources/eih/product/search?pageNum='+page+'&pageSize='+size;
     url = key?url+'&key='+key:url;
     url = seagment?url+'&catSegment3='+seagment:url;
-    console.log(url);
+    //console.log(url);
     return dispatch => {
-        console.log('action product进入请求');
+        //console.log('action product进入请求');
         dispatch(fetchingProduct());
         Util.get(url, (response) => {
-            console.log('action product结果');
-            console.log(response);
+            //console.log('action product结果');
+            //console.log(response);
             dispatch(receiverProductM(response));
         }, (error) => {
             alert(error);
-            console.log(error);
+            //console.log(error);
             dispatch(receiverProductM({}));
         })
     }
@@ -81,17 +81,17 @@ export let fetchingSearch = (page=1,size=10,key=null,seagment=null) => {
     let url = '/eihView/resources/eih/product/search?pageNum='+page+'&pageSize='+size;
     url = key?url+'&key='+key:url;
     url = seagment?url+'&catSegment3='+seagment:url;
-    console.log('搜索产品：　　'+url);
+    //console.log('搜索产品：　　'+url);
     return dispatch => {
         dispatch(fetchingProduct());
         if (page == 1) dispatch(clearProduct());
         Util.get(url, (response) => {
-            console.log('action product结果');
-            console.log(response);
+            //console.log('action product结果');
+            //console.log(response);
             dispatch(recieverProductSearch(response));
         }, (error) => {
             alert(error);
-            console.log(error);
+            //console.log(error);
             dispatch(recieverProductSearch({}));
         })
     }
@@ -99,16 +99,16 @@ export let fetchingSearch = (page=1,size=10,key=null,seagment=null) => {
 
 export let fetchDetail = (productHeaderId) => {
     let url = '/eihView/resources/eih/product?productHeaderId='+productHeaderId;
-    console.log('产品详情：　　'+url);
+    //console.log('产品详情：　　'+url);
     return dispatch => {
         // dispatch(fetchingProductDetail());
         Util.get(url, (response) => {
-            console.log('action product结果');
-            console.log(response);
+            //console.log('action product结果');
+            //console.log(response);
             dispatch(recieverProductDetail(response));
         }, (error) => {
             alert(error);
-            console.log(error);
+            //console.log(error);
             dispatch(recieverProductDetail({}));
         })
     }

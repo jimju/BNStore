@@ -131,8 +131,8 @@ const styles = StyleSheet.create({
     }
 });
 function select(state) {
-    console.log("state");
-    console.log(state);
+    //console.log("state");
+    //console.log(state);
     return {
         isFetching: state.productReducer.isFetching,
         product: state.productReducer.product
