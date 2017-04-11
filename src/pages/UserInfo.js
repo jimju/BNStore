@@ -1,7 +1,7 @@
 'use strict'
 import React, {Component} from 'react';
 import {
-    Text, StyleSheet, View, Image, TouchableOpacity,Dimensions, InteractionManager
+    Text, StyleSheet, View, Image, TouchableOpacity, Dimensions
 } from 'react-native';
 
 import Address from './Address';
@@ -14,12 +14,13 @@ import {fetchAddress} from '../actions/AddressAction';
 var ScreenWidth = Dimensions.get('window').width;
 
 class UserInfo extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            syncMessage:''
+            syncMessage: ''
         }
     }
+
     //跳转消息
     _onNotifyClick() {
         const {navigator} = this.props;
@@ -31,18 +32,17 @@ class UserInfo extends React.Component {
             });
         });
     }
+
     //跳转地址管理
     _onAddressClick() {
         const {navigator} = this.props;
-        InteractionManager.runAfterInteractions(() => {
-            navigator.push({
-                component: Address,
-                name: 'Address',
-            });
+        navigator.push({
+            component: Address,
+            name: 'Address',
         });
     }
 
-    componentDidMount(){
+    componentDidMount() {
         const {dispatch} = this.props;
         dispatch(fetchAddress(71));
     }
@@ -52,32 +52,42 @@ class UserInfo extends React.Component {
         return (
             <View style={styles.content}>
                 <TitleProductDetail {...this.props} title="个人信息"/>
-                <View style={{backgroundColor:'#dedede',padding:10}}>
-                <Text style={{fontSize:18}}>个人信息</Text>
+                <View style={{backgroundColor: '#dedede', padding: 10}}>
+                    <Text style={{fontSize: 18}}>个人信息</Text>
                 </View>
                 <TouchableOpacity >
-                <View style={styles.item}>
-                    <Text style={styles.itemtext}>头像</Text>
-                    <View style={{flex: 1}}>
+                    <View style={styles.item}>
+                        <Text style={styles.itemtext}>头像</Text>
+                        <View style={{flex: 1}}>
+                        </View>
+                        <Image style={styles.itemimg} source={require('../res/images/img_default.png')}/>
+                        <Image style={[styles.itemimg]} source={require('../res/images/jiantou.png')}/>
                     </View>
-                    <Image style={styles.itemimg} source={require('../res/images/img_default.png')}/>
-                    <Image style={[styles.itemimg]} source={require('../res/images/jiantou.png')}/>
-                </View>
                 </TouchableOpacity>
 
                 <TouchableOpacity ><MineItem name="昵称" info="测试账号"/></TouchableOpacity>
                 <TouchableOpacity ><MineItem name="修改密码" info=""/></TouchableOpacity>
-                <TouchableOpacity ><MineItem name="手机号码" info="13660880888" /></TouchableOpacity>
-                <TouchableOpacity onPress={() => this._onAddressClick()}><MineItem name="收货地址" info={address?address.data[0].shipToAddr:''}/></TouchableOpacity>
-                <View style={{backgroundColor:'#dedede',padding:10}}>
-                    <Text style={{fontSize:18}}>其他</Text>
+                <TouchableOpacity ><MineItem name="手机号码" info="13660880888"/></TouchableOpacity>
+                <TouchableOpacity onPress={() => this._onAddressClick()}><MineItem name="收货地址"
+                                                                                   info={address ? address.data[0].shipToAddr : ''}/></TouchableOpacity>
+                <View style={{backgroundColor: '#dedede', padding: 10}}>
+                    <Text style={{fontSize: 18}}>其他</Text>
                 </View>
                 <TouchableOpacity ><MineItem name="关于我们" info=""/></TouchableOpacity>
                 <TouchableOpacity ><MineItem name="意见反馈" info=""/></TouchableOpacity>
-                <TouchableOpacity onPress={() => this._onNotifyClick()}><MineItem name="版本更新" info="1.0.0"/></TouchableOpacity>
+                <TouchableOpacity onPress={() => this._onNotifyClick()}><MineItem name="版本更新"
+                                                                                  info="1.0.0"/></TouchableOpacity>
 
-                <View style={{padding:10,backgroundColor:'#dedede', position:'absolute',bottom:1}}>
-                    <Text  style={{width:ScreenWidth - 20,height: 45,padding:10,backgroundColor:'#015ba6',color:'white',textAlign:'center',fontSize:20}}>退出登录</Text>
+                <View style={{padding: 10, backgroundColor: '#dedede', position: 'absolute', bottom: 1}}>
+                    <Text style={{
+                        width: ScreenWidth - 20,
+                        height: 45,
+                        padding: 10,
+                        backgroundColor: '#015ba6',
+                        color: 'white',
+                        textAlign: 'center',
+                        fontSize: 20
+                    }}>退出登录</Text>
                 </View>
             </View>
         );
@@ -129,7 +139,7 @@ const styles = StyleSheet.create({
     },
     content: {
         flex: 1,
-        backgroundColor:'white',
+        backgroundColor: 'white',
         flexDirection: 'column',
     }
 });
@@ -137,7 +147,7 @@ const styles = StyleSheet.create({
 function select(state) {
 
     return {
-        address:state.addressReducer.address
+        address: state.addressReducer.address
     }
 }
 
